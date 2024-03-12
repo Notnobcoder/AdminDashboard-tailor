@@ -1,31 +1,29 @@
-// @ts-nocheck
 "use client";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function Home() {
-  const [data, setData] = useState();
-  useEffect(() => {
-    const dataGet = () => {
-      axios
-        .get("/api/health")
-        .then((res) => {
-          setData(res.data);
-        })
-        .catch((err) => {
-          console.log(err.response.data);
-        });
-    };
-    dataGet();
-  }, []);
-  console.log(data);
+  const { register, handleSubmit } = useForm();
+  const handleStoreSubmit = async (data: any) => {
+    console.log(data);
+    await axios
+      .post("/api/store", data)
+      .then((_res) => {
+        console.log(_res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div>
       <h4>hello world</h4>
-      {data?.Products.map((_i: any) => (
-        <Button key={_i.name}>{_i.name}</Button>
-      ))}
+      <form onSubmit={handleSubmit(handleStoreSubmit)}>
+        <Input {...register("name")} placeholder="enter store Name" />
+        <Button type="submit">Submit</Button>
+      </form>
     </div>
   );
 }

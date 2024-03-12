@@ -28,9 +28,8 @@ export const Login = () => {
   });
 
   const handleLoginSubmit = async (data: FormData) => {
-    const jsonSdata = JSON.stringify(data);
     await axios
-      .post("/api/register", jsonSdata)
+      .post("/api/register", data)
       .then((res) => {
         console.log(res.data);
       })
