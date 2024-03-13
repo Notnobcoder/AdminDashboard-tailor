@@ -22,6 +22,7 @@ export default function Home() {
       <h4>hello world</h4>
       <form onSubmit={handleSubmit(handleStoreSubmit)}>
         <Input {...register("name")} placeholder="enter store Name" />
+        <Input {...register("value")} placeholder="enter value Name" />
         <Button type="submit">Submit</Button>
       </form>
     </div>
